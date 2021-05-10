@@ -116,17 +116,10 @@ const UploadCase = ({ authState }) => {
     });
   };
 
-  const onFileChange = e => {
-    const dataForm = new FormData();
-    dataForm.append('target_file', e.target.files[0]);
-
-    if (e.target.files.length === 0) {
-      return;
-    }
-
+  const sendFile = file => {
     setIsLoading(true);
     axios
-      .post(`${process.env.REACT_APP_API_URI}/upload`, dataForm, {
+      .post(`${process.env.REACT_APP_API_URI}/upload`, file, {
         headers: {
           Authorization: 'Bearer ' + authState.idToken.idToken,
         },
@@ -140,6 +133,19 @@ const UploadCase = ({ authState }) => {
         setIsLoading(false);
         failNotification();
       });
+  };
+
+  const onFileChange = e => {
+    // dataForm.append('target_file', e.target.files[0]);
+    for (let i = 0; i < e.target.files.length; i++) {
+      const dataForm = new FormData();
+      dataForm.append('target_file', e.target.files[i]);
+      sendFile(dataForm);
+    }
+
+    if (e.target.files.length === 0) {
+      return;
+    }
   };
 
   const onInputChange = e => {
@@ -165,6 +171,7 @@ const UploadCase = ({ authState }) => {
                   style={{ display: 'none' }}
                   type="file"
                   onChange={onFileChange}
+                  multiple
                 />
                 <Button
                   className={classes.buttonStyles}
