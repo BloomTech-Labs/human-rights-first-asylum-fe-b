@@ -165,6 +165,7 @@ const UploadCase = ({ authState }) => {
                   style={{ display: 'none' }}
                   type="file"
                   onChange={onFileChange}
+                  multiple
                 />
                 <Button
                   className={classes.buttonStyles}
