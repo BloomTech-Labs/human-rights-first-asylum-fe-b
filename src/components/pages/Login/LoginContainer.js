@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { StyledLogin } from './LoginContainerStyled';
+import './LoginContainerStyled.less';
 import OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
-import Button from '@material-ui/core/Button';
 // Below is the Human Rights logo
-import hrfLogo from './hrf-logo.png';
+import logo from './hrf-logo.png';
 
 import { config } from '../../../utils/oktaConfig';
 
@@ -20,10 +19,12 @@ const LoginContainer = () => {
       registration: {},
       features: { registration: false },
       // turning this feature on allows your widget to use Okta for user registration
-      logo: `${hrfLogo}`, // Import any logo you want to display at the top of the login widget
       i18n: {
         en: {
-          'primaryauth.title': 'Login',
+          'primaryauth.title': 'Log in to Continue',
+          'primaryauth.username.placeholder': 'Email',
+          'password.forgot.email.or.username.placeholder': 'Email ',
+          'password.forgot.email.or.username.tooltip': ' ',
           // change title for your app
         },
       },
@@ -50,20 +51,26 @@ const LoginContainer = () => {
   }, []);
 
   return (
-    <StyledLogin>
+    <div className="root">
       <div
         className="background-image"
         aria-label="cosmetic background image"
       />
-      <div className="login-page">
-        <div id="sign-in-widget" aria-label="login form" />
-        <Button className="buttonStyles">
-          <Link to="/signup">
-            <p>Request to join</p>
-          </Link>
-        </Button>
+      <div className="form">
+        <div className="logo">
+          <img src={logo} alt="logo" width="350px" />
+        </div>
+        <div className="login-page">
+          <div id="sign-in-widget" aria-label="login form" />
+          <p className="register">
+            Don't have an account?{' '}
+            <Link className="link-styles" to="/signup">
+              <span>Register here</span>
+            </Link>
+          </p>
+        </div>
       </div>
-    </StyledLogin>
+    </div>
   );
 };
 
