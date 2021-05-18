@@ -29,6 +29,7 @@ import EditUserPage from '../AdminTools/EditUser';
 import AddFaq from '../AdminTools/AddFaq';
 import ManageFaqPage from '../AdminTools/ManageFaq';
 import EditFaqPage from '../AdminTools/EditFaq';
+import CasesQueue from '../CasesQueue';
 
 const useStyles = makeStyles({
   container: {
@@ -204,6 +205,7 @@ function RenderHomePage(props) {
           deleteSavedJudge={deleteSavedJudge}
         />
       </Route>
+      <CasesQueue />
       <Route exact path="/judge/:name">
         <JudgePage
           // clicking on a Judge should bring you to a url with their name in it
